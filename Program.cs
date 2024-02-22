@@ -6,12 +6,28 @@ double MyFunction(double x)
     return (x - 1) * (x - 1) + Math.Sin(x * x * x);
 }
 
-double MyDer(double x)
+
+double MyFunction2(double[] x)
 {
-    return (x / (2* Math.Sqrt(Math.Abs(x)))) + (Math.Sqrt(Math.Abs(x)) - 5);
+    // return x[0] * x[0] + x[1] * x[1];
+    // return (x[0] + 2 * x[1] - 7) * (x[0] + 2 * x[1] - 7) + (2 * x[0] + x[1] - 5) * (2 * x[0] + x[1] - 5);
+
+    double z = 0.0;
+    int n = x.Length - 1;
+
+    for(int i = 0; i < n; i++)
+    {
+        var xi = x[i];
+        var xi1 = x[i + 1];
+        z += 100 * (xi1 - xi * xi) * (xi1 - xi * xi) + (1 - xi) * (1 - xi);  
+    }
+
+    return z;
 }
 
+
 double sol;
+double[] sol2;
 var data = DateTime.Now;
 data = DateTime.Now;
 
@@ -20,9 +36,11 @@ data = DateTime.Now;
 // sol = Root.Newton(MyFunction, MyDer, 10);
 // sol = Root.Newton(MyFunction, double (double x) => Diff.Differentiate(MyFunction, x), 10);
 
-sol = Optimize.AnyStartNewton(MyFunction, 1);
-sol = Optimize.GradientDescent(MyFunction, 1.3);
+// sol = Optimize.AnyStartNewton(MyFunction, 1);
+// sol = Optimize.GradientDescent(MyFunction, 1.3);
 
+double[] a = {0, 0};
+sol2 = Optimize.GradientDescent(MyFunction2, a);
 
-// Console.WriteLine("\nExecution time: " + (DateTime.Now - data).TotalMilliseconds + " ms");
-Console.WriteLine("Resultado: " + sol);
+Console.WriteLine("\nExecution time: " + (DateTime.Now - data).TotalMilliseconds + " ms");
+Console.WriteLine("Result => x: " + sol2[0] + " | y: " + sol2[1]);
