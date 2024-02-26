@@ -7,7 +7,7 @@ double MyFunction(double x)
 }
 
 
-double MyFunction2(double[] x)
+double RosenBrock(double[] x)
 {
     // return x[0] * x[0] + x[1] * x[1];
     // return (x[0] + 2 * x[1] - 7) * (x[0] + 2 * x[1] - 7) + (2 * x[0] + x[1] - 5) * (2 * x[0] + x[1] - 5);
@@ -25,9 +25,13 @@ double MyFunction2(double[] x)
     return z;
 }
 
+double Restriction(double[] x)
+{
+    return -1.0;
+}
 
-double sol;
-double[] sol2;
+// double sol;
+// double[] sol2;
 var data = DateTime.Now;
 data = DateTime.Now;
 
@@ -40,7 +44,17 @@ data = DateTime.Now;
 // sol = Optimize.GradientDescent(MyFunction, 1.3);
 
 double[] a = {0, 0};
-sol2 = Optimize.GradientDescent(MyFunction2, a);
+// sol2 = Optimize.GradientDescent(MyFunction2, a);
+
+List<double[]> bounds = new() {
+    new double[]{-10.0, 10.0},
+    new double[] {-10.0, 10.0}
+};
+
+
+var diffEvolution = new DiffEvolution(RosenBrock, bounds, 200, Restriction);
+var res = diffEvolution.Optimize(1000);
 
 Console.WriteLine("\nExecution time: " + (DateTime.Now - data).TotalMilliseconds + " ms");
-Console.WriteLine("Result => x: " + sol2[0] + " | y: " + sol2[1]);
+// Console.WriteLine("Result => x: " + sol2[0] + " | y: " + sol2[1]);
+Console.WriteLine("Result => x: " + res[0] + " | y: " + res[1]);
