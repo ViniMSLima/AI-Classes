@@ -57,4 +57,9 @@ var res = diffEvolution.Optimize(1000);
 
 Console.WriteLine("\nExecution time: " + (DateTime.Now - data).TotalMilliseconds + " ms");
 // Console.WriteLine("Result => x: " + sol2[0] + " | y: " + sol2[1]);
-Console.WriteLine("Result => x: " + res[0] + " | y: " + res[1]);
+Console.WriteLine("Result:"); 
+
+foreach (var r in res)
+{
+    Console.WriteLine(r);
+}
