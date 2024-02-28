@@ -10,27 +10,6 @@ public static class Optimize
         return Root.Newton(diffFunction, diffSecondFunction, x0, atol, maxIter);
     }
 
-    public static double AnyStartNewton(Func<double, double> function, double start)
-    {
-        var min = Newton(function, start);
-
-        // while(true)
-        // {
-        //     start += 1e-2;
-        //     var newPoint = Newton(function, start);
-        //     if(function(newPoint) < function(min))
-        //         min = newPoint;
-        //     else
-        //         break;
-
-        // }
-
-        // Console.WriteLine(function(min));
-
-        return min;
-
-    }
-
     public static double GradientDescent(Func<double, double> function, double x0, double learningRate = 1e-2, double atol = 1e-4)
     {
         double xp = x0;

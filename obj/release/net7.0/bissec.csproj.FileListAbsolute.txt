@@ -1,0 +1,15 @@
+C:\Users\disrct\Desktop\bissec\bin\release\net7.0\bissec.exe
+C:\Users\disrct\Desktop\bissec\bin\release\net7.0\bissec.deps.json
+C:\Users\disrct\Desktop\bissec\bin\release\net7.0\bissec.runtimeconfig.json
+C:\Users\disrct\Desktop\bissec\bin\release\net7.0\bissec.dll
+C:\Users\disrct\Desktop\bissec\bin\release\net7.0\bissec.pdb
+C:\Users\disrct\Desktop\bissec\obj\release\net7.0\bissec.csproj.AssemblyReference.cache
+C:\Users\disrct\Desktop\bissec\obj\release\net7.0\bissec.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\disrct\Desktop\bissec\obj\release\net7.0\bissec.AssemblyInfoInputs.cache
+C:\Users\disrct\Desktop\bissec\obj\release\net7.0\bissec.AssemblyInfo.cs
+C:\Users\disrct\Desktop\bissec\obj\release\net7.0\bissec.csproj.CoreCompileInputs.cache
+C:\Users\disrct\Desktop\bissec\obj\release\net7.0\bissec.dll
+C:\Users\disrct\Desktop\bissec\obj\release\net7.0\refint\bissec.dll
+C:\Users\disrct\Desktop\bissec\obj\release\net7.0\bissec.pdb
+C:\Users\disrct\Desktop\bissec\obj\release\net7.0\bissec.genruntimeconfig.cache
+C:\Users\disrct\Desktop\bissec\obj\release\net7.0\ref\bissec.dll

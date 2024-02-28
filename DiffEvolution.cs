@@ -2,18 +2,18 @@ namespace AIContinuous;
 
 public class DiffEvolution
 {
-    protected List<double[]> Individuals { get; set; }
-    protected Func<double[], double> Fitness { get; }
-    protected Func<double[], double> Restriction { get; }
-    protected List<double[]> Bounds { get; }
-    protected int BestIndividualIndex { get; set; }
-    protected double MutationMin { get; set; }
-    protected double MutationMax { get; set; }
-    protected double Recombination { get; set; }
-    protected int Dimension { get; }
-    protected int NPop { get; }
-    private double[] IndividualsRestrictions { get; set; }
-    private double[] IndividualsFitness { get; set; }
+    protected   List<double[]> Individuals { get; set; }
+    protected   Func<double[], double> Fitness { get; }
+    protected   Func<double[], double> Restriction { get; }
+    protected   List<double[]> Bounds { get; }
+    protected   int       BestIndividualIndex { get; set; }
+    protected   double    MutationMin { get; set; }
+    protected   double    MutationMax { get; set; }
+    protected   double  Recombination { get; set; }
+    protected   int     Dimension { get; }
+    protected   int     NPop { get; }
+    private     double[] IndividualsRestrictions { get; set; }
+    private     double[] IndividualsFitness { get; set; }
 
     public DiffEvolution(
         Func<double[], double> fitness,

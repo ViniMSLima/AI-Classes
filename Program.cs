@@ -1,63 +1,61 @@
 ﻿using AIContinuous;
+using AIContinuous.Nuenv;
+using  AIContinuous.Rocket;
 
-double MyFunction(double x)
+var timeData = Space.Linear(0.0, 50.0, 11);
+var massFlowData = Space.Uniform(70.0, 11);
+
+Rocket rocket = new(
+    Math.PI * 0.6 * 0.6/ 4.0,
+    massFlowData,
+    timeData,
+    750.0,
+    1916.0,
+    0.8
+);
+
+double MyFunction(double[] x)
 {
-    // return (Math.Sqrt(Math.Abs(x)) - 5) * x + 10;
-    return (x - 1) * (x - 1) + Math.Sin(x * x * x);
+    var times= Space.Linear(0.0, 50.0, 11);
+    Rocket rocket = new(
+    Math.PI * 0.6 * 0.6/ 4.0,
+    x,
+    timeData,
+    750.0,
+    1916.0,
+    0.8
+);
+    
+    return rocket.LaunchUntilMax();
 }
 
-
-double RosenBrock(double[] x)
-{
-    // return x[0] * x[0] + x[1] * x[1];
-    // return (x[0] + 2 * x[1] - 7) * (x[0] + 2 * x[1] - 7) + (2 * x[0] + x[1] - 5) * (2 * x[0] + x[1] - 5);
-
-    double z = 0.0;
-    int n = x.Length - 1;
-
-    for(int i = 0; i < n; i++)
-    {
-        var xi = x[i];
-        var xi1 = x[i + 1];
-        z += 100 * (xi1 - xi * xi) * (xi1 - xi * xi) + (1 - xi) * (1 - xi);  
-    }
-
-    return z;
-}
+// double MyFunction2(double[] x)
+//     => rocket.LaunchUntilMax();
 
 double Restriction(double[] x)
-{
-    return -1.0;
-}
+    => -1.0;
 
-// double sol;
-// double[] sol2;
-var data = DateTime.Now;
-data = DateTime.Now;
+// double GD = Optimize.GradientDescent(MyFunction, 1.3);
+// Console.WriteLine(GD);
 
-// sol = Root.Bisection(MyFunction, -10, 10);
-// sol = Root.FalsePosition(MyFunction, -10, 10);
-// sol = Root.Newton(MyFunction, MyDer, 10);
-// sol = Root.Newton(MyFunction, double (double x) => Diff.Differentiate(MyFunction, x), 10);
-
-// sol = Optimize.AnyStartNewton(MyFunction, 1);
-// sol = Optimize.GradientDescent(MyFunction, 1.3);
-
-double[] a = {0, 0};
-// sol2 = Optimize.GradientDescent(MyFunction2, a);
 
 List<double[]> bounds = new() {
-    new double[]{-10.0, 10.0},
-    new double[] {-10.0, 10.0}
+    new double[]{0.0, 3500.0},
+    new double[]{0.0, 3500.0},
+    new double[]{0.0, 3500.0},
+    new double[]{0.0, 3500.0},
+    new double[]{0.0, 3500.0},
+    new double[]{0.0, 3500.0},
+    new double[]{0.0, 3500.0},
+    new double[]{0.0, 3500.0},
+    new double[]{0.0, 3500.0},
+    new double[]{0.0, 3500.0},
+    new double[]{0.0, 3500.0}
 };
 
-
-var diffEvolution = new DiffEvolution(RosenBrock, bounds, 200, Restriction);
+var diffEvolution = new DiffEvolution(MyFunction, bounds, 20, Restriction);
 var res = diffEvolution.Optimize(1000);
 
-Console.WriteLine("\nExecution time: " + (DateTime.Now - data).TotalMilliseconds + " ms");
-// Console.WriteLine("Result => x: " + sol2[0] + " | y: " + sol2[1]);
-Console.WriteLine("Result:"); 
 
 foreach (var r in res)
 {
