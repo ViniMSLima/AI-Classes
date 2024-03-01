@@ -78,6 +78,19 @@ public class DiffEvolution
         IndividualsFitness[BestIndividualIndex] = fitnessBest;
     }
 
+    private void EnsureBounds(double[] individual)
+    {
+        for(int i = 0; i < Dimension; i++)
+        {
+            if(individual[i] < Bounds[i][0] || individual[i] > Bounds[i][1])
+                individual[i] = Utils.Rescale(
+                    Random.Shared.NextDouble(),
+                    Bounds[i][0], 
+                    Bounds[i][1]
+                );
+        }
+    }
+
     public double[] Optimize(int n)
     {
         GeneratePopulation();
@@ -127,15 +140,6 @@ public class DiffEvolution
         EnsureBounds(trial2);
 
         return trial2;
-    }
-
-    private void EnsureBounds(double[] individual)
-    {
-        for(int i = 0; i < Dimension; i++)
-        {
-            if(individual[i] < Bounds[i][0] || individual[i] > Bounds[i][1])
-                Utils.Rescale(Random.Shared.NextDouble(), Bounds[i][0], Bounds[i][1]);
-        }
     }
 
     protected void Iterate()
