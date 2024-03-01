@@ -1,63 +1,58 @@
 ﻿using AIContinuous;
 using AIContinuous.Nuenv;
-using  AIContinuous.Rocket;
+using AIContinuous.Rocket;
 
-var timeData = Space.Linear(0.0, 50.0, 11);
-var massFlowData = Space.Uniform(70.0, 11);
+var size = 11;
+var timeData = Space.Geometric(1.0, 501.0, size).Select(x => x - 1.0).ToArray();
 
-Rocket rocket = new(
-    Math.PI * 0.6 * 0.6/ 4.0,
-    massFlowData,
-    timeData,
-    750.0,
-    1916.0,
-    0.8
-);
-
-double MyFunction(double[] x)
+double Simulate(double[] massFlowData)
 {
-    var times= Space.Linear(0.0, 50.0, 11);
-    Rocket rocket = new(
-    Math.PI * 0.6 * 0.6/ 4.0,
-    x,
-    timeData,
-    750.0,
-    1916.0,
-    0.8
-);
-    
+    Rocket rocket = new
+    (
+        Math.PI * 0.6 * 0.6 / 4.0,
+        massFlowData,
+        timeData,
+        750.0,
+        1916.0,
+        0.8
+    );
+
     return rocket.LaunchUntilMax();
 }
 
-// double MyFunction2(double[] x)
-//     => rocket.LaunchUntilMax();
+double FitnessDE(double[] x) => - 1.0 * Simulate(x);
 
-double Restriction(double[] x)
-    => -1.0;
+double Restriction(double[] y)
+    => Integrate.Romberg(timeData, y) - 3500.0;
 
-// double GD = Optimize.GradientDescent(MyFunction, 1.3);
-// Console.WriteLine(GD);
+List<double[]> bounds = new();
 
+for (int i = 0; i < size; i++)
+    bounds.Add(new double[] { 0.0, 1000.0 });
 
-List<double[]> bounds = new() {
-    new double[]{0.0, 3500.0},
-    new double[]{0.0, 3500.0},
-    new double[]{0.0, 3500.0},
-    new double[]{0.0, 3500.0},
-    new double[]{0.0, 3500.0},
-    new double[]{0.0, 3500.0},
-    new double[]{0.0, 3500.0},
-    new double[]{0.0, 3500.0},
-    new double[]{0.0, 3500.0},
-    new double[]{0.0, 3500.0},
-    new double[]{0.0, 3500.0}
-};
-
-var diffEvolution = new DiffEvolution(MyFunction, bounds, 20, Restriction);
-var res = diffEvolution.Optimize(1000);
-
+var diffEvolution = new DiffEvolution(FitnessDE, bounds, 15 * size, Restriction);
+var res = diffEvolution.Optimize(100);
 
 foreach (var r in res)
-{
     Console.WriteLine(r);
-}
+
+Console.WriteLine("Max height: " + Simulate(res));
+
+//=======================================================================================//
+
+// double FitnessGD(double[] y)
+// {   
+//     var totalGas = Integrate.Romberg(timeData, y) - 3500.0;
+//     double penalty = Math.Pow(totalGas - 3500.0, 3);
+
+//     var minimize = -1.0 * Simulate(y);
+//     return minimize + penalty;
+// }
+
+// double[] a = {0, 1000, 200, 500, 200, 700, 1000, 200, 400, 500, 500};
+// double[] grad = Optimize.GradientDescent(FitnessGD, a);
+
+// foreach (var r in grad)
+//     Console.WriteLine(r);
+
+//=======================================================================================//

@@ -79,7 +79,7 @@ public class Rocket
 
     public void UpdateMass(double t, double dt)
     {
-        Mass -=  0.5 * dt * (CalculateMassFlow(t) + CalculateMassFlow(t + dt));
+        Mass -= 0.5 * dt * (CalculateMassFlow(t) + CalculateMassFlow(t + dt));
     }
 
     public void FlyALittleBit(double dt)
